@@ -257,6 +257,7 @@ app.post("/events/:id/register", requireAuth, async (req, res) => {
 });
 
 // ---------- Start ----------
-app.listen(PORT, () => {
-  console.log(`EventHub running on ${BASE_URL}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`EventHub running on http://0.0.0.0:${PORT}`);
 });
