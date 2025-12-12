@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= event.title %></title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="/">EventHub</a>
+  <nav>
+    <% if (user) { %>
+      <a href="/events/new">Host Event</a>
+      <form action="/logout" method="post" class="inline">
+        <button class="linkbtn">Logout</button>
+      </form>
+    <% } else { %>
+      <a href="/login">Login</a>
+      <a href="/signup" class="pill">Sign up</a>
+    <% } %>
+  </nav>
+</header>
+
+<main>
+  <h1><%= event.title %></h1>
+  <div class="muted">Host: <%= event.host_name %></div>
+  <div class="muted">When: <%= event.starts_at %></div>
+  <div class="muted">Where: <%= event.location %></div>
+
+  <div class="box"><%= event.description %></div>
+
+  <div class="tiny"><%= event.reg_count %>/<%= event.capacity %> registered</div>
+
+  <% if (er
+
+
+ror) { %><div class="error"><%= error %></div><% } %>
+  <% if (ok) { %><div class="ok"><%= ok %></div><% } %>
+
+  <% if (!user) { %>
+    <p class="muted">Login to register: <a href="/login">Login</a></p>
+  <% } else { %>
+    <% if (alreadyRegistered) { %>
+      <div class="ok">You’re registered ✅</div>
+    <% } else { %>
+      <form method="post" action="/events/<%= event.id %>/register">
+        <button type="submit">Register</button>
+      </form>
+    <% } %>
+  <% } %>
+</main>
+</body>
+</html>

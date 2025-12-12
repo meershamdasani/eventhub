@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EventHub</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="/">EventHub</a>
+  <nav>
+    <% if (user) { %>
+      <a href="/events/new">Host Event</a>
+      <form action="/logout" method="post" class="inline"><button class="linkbtn">Logout</button></form>
+    <% } else { %>
+      <a href="/login">Login</a>
+      <a href="/signup" class="pill">Sign up</a>
+    <% } %>
+  </nav>
+</header>
+
+<main>
+  <h1>Upcoming events</h1>
+  <div class="grid">
+    <% if (!events.length) { %>
+      <div class="muted">No events yet. Host the first one.</div>
+    <% } %>
+
+    <% events.forEach(e => { %>
+      <a class="card" href="/events/<%= e.id %>">
+        <div class="cardTitle"><%= e.title %></div>
+        <div class="muted">Host: <%= e.host_name %></div>
+        <div class="muted">When: <%= e.starts_at %></div>
+        <div class="muted">Where: <%= e.location %></div>
+        <div class="tiny"><%= e.reg_count %>/<%= e.capacity %> registered</div>
+      </a>
+    <% }) %>
+  </div>
+</main>
+</body>
+</html>
